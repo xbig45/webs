@@ -90,28 +90,17 @@ const Features: React.FC = () => {
                 <div className="text-gray-300 font-medium">Success Rate</div>
               </div>
             </div>
-
-            {/* CTA Button */}
-            <div className="pt-4">
-              <button className="group bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 text-white px-10 py-5 rounded-2xl font-bold text-xl hover:from-indigo-600 hover:via-purple-700 hover:to-pink-700 transition-all duration-300 transform hover:scale-105 flex items-center space-x-3 shadow-2xl shadow-indigo-500/25 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                <Rocket className="h-6 w-6 relative z-10" />
-                <span className="relative z-10">Start Your Journey</span>
-                <ArrowRight className="h-6 w-6 relative z-10 group-hover:translate-x-1 transition-transform duration-200" />
-              </button>
-            </div>
           </div>
 
-          {/* Right Side - 3D Laptop Model */}
+          {/* Right Side - 3D Laptop Model (No Box) */}
           <div className="relative">
-            <div className="glass-morphism rounded-3xl p-8 border border-white/10 shadow-2xl relative z-20">
-              <div className="flex justify-center items-center">
-                <div style={{ width: '100%', height: '500px', maxWidth: '556px' }} className="rounded-2xl overflow-hidden relative z-30">
-                  <spline-viewer 
-                    url="https://prod.spline.design/Znd61lFcSyJ8XkXx/scene.splinecode"
-                    style={{ width: '100%', height: '100%' }}
-                  />
-                </div>
+            {/* Direct 3D model without container box */}
+            <div className="flex justify-center items-center relative z-30">
+              <div style={{ width: '100%', height: '600px', maxWidth: '731px' }} className="rounded-2xl overflow-hidden">
+                <spline-viewer 
+                  url="https://prod.spline.design/Znd61lFcSyJ8XkXx/scene.splinecode"
+                  style={{ width: '100%', height: '100%' }}
+                />
               </div>
             </div>
 
@@ -121,8 +110,8 @@ const Features: React.FC = () => {
             <div className="absolute -bottom-4 -left-6 w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full animate-bounce opacity-80" style={{ animationDelay: '1s' }}></div>
             <div className="absolute -bottom-2 -right-4 w-7 h-7 bg-gradient-to-r from-purple-500 to-violet-500 rounded-full animate-bounce opacity-80" style={{ animationDelay: '1.5s' }}></div>
 
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/20 via-purple-400/20 to-pink-400/20 rounded-3xl blur-3xl opacity-50 animate-pulse -z-10"></div>
+            {/* Subtle glow effect behind the model */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/10 via-purple-400/10 to-pink-400/10 rounded-3xl blur-3xl opacity-50 animate-pulse -z-10"></div>
           </div>
         </div>
 
