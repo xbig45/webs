@@ -76,29 +76,25 @@ const DeviceCompatibility: React.FC = () => {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* 3D Phone with proper sizing */}
+          {/* 3D Phone with proper layering */}
           <div className="relative">
-            <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl">
-              <div className="flex justify-center items-center relative z-10">
-                <div style={{ width: '265px', height: '418px' }} className="rounded-2xl overflow-hidden">
+            <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl relative z-20">
+              <div className="flex justify-center items-center relative">
+                <div style={{ width: '265px', height: '418px' }} className="rounded-2xl overflow-hidden relative z-30">
                   <Spline 
                     scene="https://prod.spline.design/p8MZXfLocd0gyn17/scene.splinecode"
                     style={{ width: '100%', height: '100%' }}
                   />
                 </div>
               </div>
-              <div className="mt-6 text-center">
-                <h3 className="text-xl font-bold text-white mb-2">Interactive 3D Experience</h3>
-                <p className="text-gray-300">Experience our platform across all your devices</p>
-              </div>
             </div>
 
             {/* Content below phone */}
-            <div className="mt-8 space-y-6">
+            <div className="mt-8 space-y-6 relative z-20">
               <div className="text-center">
-                <h4 className="text-lg font-semibold text-white mb-4">Fully Working on All Devices</h4>
+                <h4 className="text-lg font-semibold text-white mb-4">Cross-Platform Learning Experience</h4>
                 <p className="text-gray-300 mb-6">
-                  Access your courses seamlessly across mobile, tablet, laptop, and desktop with synchronized progress.
+                  Access your courses seamlessly across mobile, tablet, laptop, and desktop with synchronized progress and premium features.
                 </p>
               </div>
 
@@ -138,7 +134,7 @@ const DeviceCompatibility: React.FC = () => {
           </div>
 
           {/* Device Grid */}
-          <div className="space-y-8">
+          <div className="space-y-8 relative z-20">
             <div className="grid grid-cols-2 gap-6">
               {devices.map((device, index) => (
                 <div

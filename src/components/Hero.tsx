@@ -40,7 +40,7 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900" />
       
       {/* Sophisticated animated background */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-[2]">
         {/* Floating geometric shapes */}
         {Array.from({ length: 12 }).map((_, i) => (
           <div
@@ -68,10 +68,10 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Premium overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/20 z-10" /> 
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/5 to-black/20 z-[3]" /> 
 
       {/* Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+      <div className="relative z-[10] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
         <div className="text-center space-y-12">
           {/* Premium hero badge */}
           <div className="inline-flex items-center space-x-4 glass-morphism rounded-full px-8 py-4 border border-white/30 shadow-2xl animate-fade-in">
@@ -79,7 +79,7 @@ const Hero: React.FC = () => {
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
               <Globe className="h-6 w-6 text-indigo-400" />
             </div>
-            <span className="text-white font-semibold text-lg">Premium 3D Learning Platform</span>
+            <span className="text-white font-semibold text-lg">Premium Learning Platform</span>
             <div className="flex items-center space-x-1">
               <Star className="h-5 w-5 text-yellow-400 fill-current" />
               <span className="text-yellow-400 font-bold">4.9</span>
@@ -96,7 +96,7 @@ const Hero: React.FC = () => {
               of Learning
             </h1>
             <p className="text-2xl lg:text-3xl text-gray-200 max-w-5xl mx-auto leading-relaxed font-light">
-              Transform your potential with our revolutionary 3D learning environment. 
+              Transform your potential with our revolutionary learning environment. 
               <span className="text-gradient-secondary font-medium">Master tomorrow's skills today.</span>
             </p>
           </div>
@@ -186,7 +186,7 @@ const Hero: React.FC = () => {
 
       {/* Smart scroll indicator - only shows when at top */}
       {scrollY < 100 && (
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-[10]">
           <div className="w-8 h-12 border-2 border-white/40 rounded-full flex justify-center glass-morphism">
             <div className="w-2 h-4 bg-white/60 rounded-full mt-2 animate-pulse"></div>
           </div>
