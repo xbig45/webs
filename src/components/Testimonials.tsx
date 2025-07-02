@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, Quote, CheckCircle, Award, Briefcase, GraduationCap } from 'lucide-react';
+import { Star, Quote, CheckCircle, Award, Briefcase, GraduationCap, Rocket, Sparkles } from 'lucide-react';
 
 const Testimonials: React.FC = () => {
   const testimonials = [
@@ -8,9 +8,9 @@ const Testimonials: React.FC = () => {
       name: 'Commander Sarah Rodriguez',
       role: 'Software Engineer at SpaceX',
       image: 'https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=400',
-      content: 'EduSphere transformed my career trajectory. The interactive 3D learning environment made complex algorithms feel like exploring new galaxies. I landed my dream job at SpaceX within 6 months of completing the advanced programming track!',
+      content: 'EduSphere transformed my career trajectory. The interactive learning environment made complex algorithms feel like exploring new galaxies. I landed my dream job at SpaceX within 6 months!',
       rating: 5,
-      course: 'Advanced Algorithms & Space Computing',
+      course: 'Advanced Algorithms & Computing',
       achievement: 'Career Transformation',
       gradient: 'from-blue-500 to-cyan-500',
       bgGradient: 'from-blue-500/10 to-cyan-500/10',
@@ -21,9 +21,9 @@ const Testimonials: React.FC = () => {
       name: 'Captain Marcus Johnson',
       role: 'Lead UI/UX Designer at NASA',
       image: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400',
-      content: 'The design thinking course was phenomenal. Working with COSMOS AI felt like having a personal mission control guiding every step. The mentorship program connected me with industry experts who helped me navigate my career like a seasoned astronaut.',
+      content: 'The design thinking course was phenomenal. Working with AI guidance felt like having a personal mission control. The mentorship program connected me with industry experts who helped me navigate my career.',
       rating: 5,
-      course: 'UI/UX Design for Space Interfaces',
+      course: 'UI/UX Design for Interfaces',
       achievement: 'Design Leadership',
       gradient: 'from-purple-500 to-pink-500',
       bgGradient: 'from-purple-500/10 to-pink-500/10',
@@ -47,7 +47,7 @@ const Testimonials: React.FC = () => {
       name: 'Lieutenant David Kim',
       role: 'Blockchain Architect',
       image: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400',
-      content: 'The blockchain development course was comprehensive and practical. I built 5 real projects and now run my own successful DeFi startup. The space-themed learning environment made complex concepts feel like an exciting mission!',
+      content: 'The blockchain development course was comprehensive and practical. I built 5 real projects and now run my own successful DeFi startup. The learning environment made complex concepts feel like an exciting mission!',
       rating: 5,
       course: 'Blockchain & Cryptocurrency Systems',
       achievement: 'Startup Success',
@@ -60,9 +60,9 @@ const Testimonials: React.FC = () => {
       name: 'Major Lisa Wang',
       role: 'Cloud Architect at Microsoft',
       image: 'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=400',
-      content: 'EduSphere\'s cloud architecture course gave me the skills and confidence to design enterprise-scale solutions. The hands-on labs were incredibly valuable, like conducting real space missions with cloud infrastructure.',
+      content: 'EduSphere\'s cloud architecture course gave me the skills and confidence to design enterprise-scale solutions. The hands-on labs were incredibly valuable, like conducting real missions with cloud infrastructure.',
       rating: 5,
-      course: 'Cloud Architecture & Space Systems',
+      course: 'Cloud Architecture & Systems',
       achievement: 'Enterprise Leadership',
       gradient: 'from-indigo-500 to-purple-500',
       bgGradient: 'from-indigo-500/10 to-purple-500/10',
@@ -85,36 +85,47 @@ const Testimonials: React.FC = () => {
 
   return (
     <section className="py-20 relative overflow-hidden">
-      {/* Dynamic space background */}
+      {/* Enhanced background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-indigo-900/20"></div>
         {/* Floating stars */}
-        {Array.from({ length: 30 }).map((_, i) => (
+        {Array.from({ length: 40 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-white/20 rounded-full"
+            className="absolute"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
               animation: `twinkle ${3 + Math.random() * 4}s ease-in-out infinite`,
               animationDelay: `${Math.random() * 5}s`
             }}
-          />
+          >
+            {i % 3 === 0 ? (
+              <Star className="w-2 h-2 text-white/30" />
+            ) : i % 3 === 1 ? (
+              <Sparkles className="w-2 h-2 text-white/20" />
+            ) : (
+              <div className="w-1 h-1 bg-white/40 rounded-full" />
+            )}
+          </div>
         ))}
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-white/20">
-            <GraduationCap className="h-5 w-5 text-yellow-400" />
-            <span className="text-white font-medium">Mission Success Stories</span>
+          <div className="inline-flex items-center space-x-3 glass-morphism rounded-full px-8 py-4 mb-8 border border-white/20 shadow-lg">
+            <Rocket className="h-6 w-6 text-yellow-400 animate-bounce" />
+            <span className="text-white font-bold text-lg">Success Stories</span>
+            <GraduationCap className="h-6 w-6 text-indigo-400" />
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-8 leading-tight">
             Real Stories from
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"> Space Explorers</span>
+            <span className="block bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"> 
+              Learning Explorers
+            </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Meet our graduates who have launched their careers into new orbits and achieved stellar success.
+          <p className="text-xl lg:text-2xl text-gray-200 max-w-4xl mx-auto leading-relaxed">
+            Meet our graduates who have launched their careers into new orbits and achieved stellar success with our revolutionary learning platform.
           </p>
         </div>
 
@@ -122,64 +133,64 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className={`group bg-gradient-to-br ${testimonial.bgGradient} backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl relative overflow-hidden`}
+              className={`group glass-morphism rounded-3xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl relative overflow-hidden`}
               style={{
                 animationDelay: `${index * 100}ms`
               }}
             >
-              {/* Space-themed background glow */}
+              {/* Enhanced background glow */}
               <div className={`absolute inset-0 bg-gradient-to-br ${testimonial.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-3xl`}></div>
               
               <div className="relative z-10">
-                {/* Astronaut badge */}
+                {/* Enhanced badge */}
                 <div className={`inline-flex items-center space-x-2 bg-gradient-to-r ${testimonial.gradient} text-white px-4 py-2 rounded-full text-xs font-bold mb-6 shadow-lg`}>
                   <Award className="h-4 w-4" />
                   <span>{testimonial.badge}</span>
                 </div>
                 
-                {/* Quote with space theme */}
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${testimonial.gradient} mb-6 shadow-lg`}>
+                {/* Quote with enhanced styling */}
+                <div className={`inline-flex p-4 rounded-xl bg-gradient-to-r ${testimonial.gradient} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                   <Quote className="h-6 w-6 text-white" />
                 </div>
                 
-                {/* Rating with stars */}
+                {/* Enhanced rating */}
                 <div className="flex items-center space-x-1 mb-6">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current animate-pulse" style={{ animationDelay: `${i * 100}ms` }} />
                   ))}
-                  <span className="ml-2 text-sm text-gray-400">({testimonial.rating}.0)</span>
+                  <span className="ml-2 text-sm text-gray-400 font-medium">({testimonial.rating}.0)</span>
                 </div>
 
-                {/* Content */}
-                <p className="text-gray-300 leading-relaxed mb-8 group-hover:text-gray-200 transition-colors duration-200 text-lg">
+                {/* Enhanced content */}
+                <p className="text-gray-200 leading-relaxed mb-8 group-hover:text-white transition-colors duration-200 text-lg font-medium">
                   "{testimonial.content}"
                 </p>
 
-                {/* Mission completed */}
+                {/* Course completed */}
                 <div className={`text-sm font-medium mb-6 bg-gradient-to-r ${testimonial.gradient} bg-clip-text text-transparent flex items-center`}>
                   <CheckCircle className="inline h-5 w-5 mr-2 text-green-400" />
-                  Mission: {testimonial.course}
+                  Course: {testimonial.course}
                 </div>
 
-                {/* Achievement badge */}
-                <div className="bg-white/10 rounded-xl p-4 mb-6 border border-white/10">
+                {/* Enhanced achievement badge */}
+                <div className="glass-morphism rounded-xl p-4 mb-6 border border-white/10 group-hover:border-white/20 transition-colors duration-300">
                   <div className="flex items-center space-x-2 text-green-400 text-sm font-semibold">
-                    <Award className="h-4 w-4" />
+                    <Rocket className="h-4 w-4" />
                     <span>Achievement: {testimonial.achievement}</span>
                   </div>
                 </div>
 
-                {/* Astronaut profile */}
+                {/* Enhanced profile */}
                 <div className="flex items-center space-x-4">
                   <div className="relative">
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="w-16 h-16 rounded-full object-cover border-3 border-white/20 group-hover:border-white/40 transition-colors duration-200"
+                      className="w-16 h-16 rounded-full object-cover border-3 border-white/20 group-hover:border-white/40 transition-colors duration-200 shadow-lg"
                     />
                     <div className={`absolute inset-0 rounded-full bg-gradient-to-r ${testimonial.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-200`}></div>
-                    {/* Space rank indicator */}
-                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full border-2 border-white flex items-center justify-center">
+                    {/* Enhanced rank indicator */}
+                    <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full border-2 border-white flex items-center justify-center shadow-lg">
                       <Briefcase className="h-3 w-3 text-white" />
                     </div>
                   </div>
@@ -187,39 +198,45 @@ const Testimonials: React.FC = () => {
                     <h4 className="text-white font-bold text-lg group-hover:text-indigo-300 transition-colors duration-200">
                       {testimonial.name}
                     </h4>
-                    <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-200">
+                    <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-200 font-medium">
                       {testimonial.role}
                     </p>
                   </div>
                 </div>
 
-                {/* Mission status */}
+                {/* Enhanced status */}
                 <div className="mt-6 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                   <span className="text-xs text-green-400 font-medium">Mission Accomplished</span>
+                  <Sparkles className="h-3 w-3 text-yellow-400" />
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Call to action */}
+        {/* Enhanced call to action */}
         <div className="text-center mt-16">
-          <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 max-w-3xl mx-auto">
-            <h3 className="text-3xl font-bold text-white mb-4">Ready to Launch Your Mission?</h3>
-            <p className="text-gray-300 mb-8 text-lg">Join thousands of space explorers who have transformed their careers with EduSphere.</p>
-            <button className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-10 py-4 rounded-full font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 hover:scale-105 shadow-lg text-lg">
-              Begin Your Space Journey
+          <div className="glass-morphism rounded-3xl p-10 border border-white/10 max-w-4xl mx-auto shadow-2xl">
+            <div className="mb-6">
+              <Rocket className="h-16 w-16 text-indigo-400 mx-auto mb-4 animate-bounce" />
+            </div>
+            <h3 className="text-4xl font-black text-white mb-6">Ready to Launch Your Mission?</h3>
+            <p className="text-gray-200 mb-10 text-xl leading-relaxed">Join thousands of explorers who have transformed their careers with EduSphere.</p>
+            <button className="bg-gradient-to-r from-indigo-500 via-purple-600 to-pink-600 text-white px-12 py-5 rounded-2xl font-bold text-xl hover:from-indigo-600 hover:via-purple-700 hover:to-pink-700 transition-all duration-200 hover:scale-105 shadow-2xl flex items-center space-x-3 mx-auto">
+              <Rocket className="h-6 w-6" />
+              <span>Begin Your Journey</span>
+              <Sparkles className="h-6 w-6" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Custom CSS for space animations */}
+      {/* Enhanced CSS for animations */}
       <style jsx>{`
         @keyframes twinkle {
-          0%, 100% { opacity: 0.3; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
+          0%, 100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
+          50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
         }
       `}</style>
     </section>

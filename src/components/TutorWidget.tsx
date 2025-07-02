@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Sparkles, Send, Minimize2, Maximize2, Zap, BookOpen, Crown, Bot, Cpu, Wifi, Brain, Monitor, Rocket, Star } from 'lucide-react';
 
 interface Message {
@@ -15,48 +15,64 @@ const TutorWidget: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "Hello! I'm COSMOS, your space-age learning companion. I'm equipped with advanced AI algorithms to guide you through the universe of knowledge. What stellar subject would you like to explore today? 🚀",
+      text: "Hello! I'm COSMOS, your AI learning companion. I'm here to guide you through your educational journey with personalized assistance. What would you like to explore today? 🚀",
       isUser: false,
       timestamp: new Date()
     }
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [astronautMood, setAstronautMood] = useState<'idle' | 'thinking' | 'excited' | 'speaking'>('idle');
-  const [helmetGlow, setHelmetGlow] = useState('normal');
+  const [eyeState, setEyeState] = useState<'open' | 'blink' | 'wink'>('open');
+  const [mouthState, setMouthState] = useState<'neutral' | 'speaking' | 'happy'>('neutral');
+  const [isThinking, setIsThinking] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Premium AI responses with space/learning theme
+  // Enhanced AI responses
   const aiResponses = [
-    "Excellent question! My neural networks are processing the optimal learning trajectory for you. 🚀",
-    "I love your curiosity! My AI sensors detect high learning potential in this cosmic area. ⭐",
-    "That's a stellar question! Let me access my knowledge database from the learning galaxy... 🌌",
-    "Perfect timing for this question! My space-age analysis suggests this is a key concept... 💫",
-    "You're thinking like a true space explorer! My pattern recognition shows this connects to several cosmic principles... 🌟",
-    "Brilliant question! My learning optimization protocols indicate this is where breakthroughs happen... 🛸",
-    "I can see you're ready for advanced concepts! Let me compile the best learning strategy from my space station... 🚀",
-    "This is exactly what separates good learners from cosmic explorers! Accessing premium content... 👨‍🚀"
+    "Excellent question! Let me analyze the best learning path for you. 🎯",
+    "I love your curiosity! This is exactly the kind of thinking that leads to breakthroughs. ⭐",
+    "That's a fantastic question! My AI algorithms suggest this connects to several key concepts... 🌟",
+    "Perfect timing! This topic is crucial for your learning journey. Let me break it down... 💫",
+    "You're thinking like a true learner! This question shows great analytical skills. 🚀",
+    "Brilliant! This is where many students have their 'aha!' moments. Let me guide you... ✨",
+    "I can see you're ready for advanced concepts! This is exactly what separates good learners from great ones... 🎓",
+    "This is a key insight! My learning optimization shows this will unlock new understanding... 🔑"
   ];
 
   const quickSuggestions = [
     "Explain this concept simply",
-    "Show me practical examples",
+    "Show me practical examples", 
     "What should I learn next?",
     "Help me practice this skill"
   ];
 
-  // Enhanced astronaut animations and mood system
+  // Enhanced animations
   useEffect(() => {
-    const moodCycle = setInterval(() => {
-      if (astronautMood === 'idle') {
-        setHelmetGlow(Math.random() > 0.7 ? 'blink' : 'normal');
+    const blinkInterval = setInterval(() => {
+      if (eyeState === 'open' && !isThinking) {
+        setEyeState('blink');
+        setTimeout(() => setEyeState('open'), 150);
       }
-    }, 2000);
+    }, 2000 + Math.random() * 3000);
 
-    return () => clearInterval(moodCycle);
-  }, [astronautMood]);
+    return () => clearInterval(blinkInterval);
+  }, [eyeState, isThinking]);
+
+  // Mouth animation during speaking
+  useEffect(() => {
+    if (isTyping) {
+      setMouthState('speaking');
+      const speakingInterval = setInterval(() => {
+        setMouthState(prev => prev === 'speaking' ? 'neutral' : 'speaking');
+      }, 300);
+      
+      return () => clearInterval(speakingInterval);
+    } else {
+      setMouthState('neutral');
+    }
+  }, [isTyping]);
 
   // Auto-scroll messages
   useEffect(() => {
@@ -84,10 +100,10 @@ const TutorWidget: React.FC = () => {
     setMessages(prev => [...prev, userMessage]);
     setInputMessage('');
     setIsTyping(true);
-    setAstronautMood('thinking');
-    setHelmetGlow('processing');
+    setIsThinking(true);
+    setEyeState('open');
 
-    // Simulate AI processing with realistic delay
+    // Simulate AI processing
     setTimeout(() => {
       const aiResponse: Message = {
         id: Date.now() + 1,
@@ -98,14 +114,13 @@ const TutorWidget: React.FC = () => {
       
       setMessages(prev => [...prev, aiResponse]);
       setIsTyping(false);
-      setAstronautMood('excited');
-      setHelmetGlow('happy');
+      setIsThinking(false);
+      setMouthState('happy');
       
-      // Return to idle after speaking
+      // Return to neutral after speaking
       setTimeout(() => {
-        setAstronautMood('idle');
-        setHelmetGlow('normal');
-      }, 3000);
+        setMouthState('neutral');
+      }, 2000);
     }, 1500 + Math.random() * 1000);
   };
 
@@ -116,35 +131,31 @@ const TutorWidget: React.FC = () => {
     }
   };
 
-  const getAstronautAnimation = () => {
-    switch (astronautMood) {
-      case 'thinking':
-        return 'animate-pulse';
-      case 'excited':
-        return 'animate-bounce';
-      case 'speaking':
-        return 'animate-pulse';
+  const getEyeStyle = () => {
+    switch (eyeState) {
+      case 'blink':
+        return 'h-0.5';
+      case 'wink':
+        return 'h-1';
       default:
-        return '';
+        return 'h-2';
     }
   };
 
-  const getHelmetGlow = () => {
-    switch (helmetGlow) {
-      case 'blink':
-        return 'opacity-50';
-      case 'processing':
-        return 'bg-indigo-400 animate-pulse';
+  const getMouthStyle = () => {
+    switch (mouthState) {
+      case 'speaking':
+        return 'w-4 h-2 rounded-full';
       case 'happy':
-        return 'bg-green-400';
+        return 'w-4 h-1 rounded-full bg-green-400';
       default:
-        return 'bg-cyan-400';
+        return 'w-3 h-0.5 rounded-full';
     }
   };
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Premium Chat Interface */}
+      {/* Enhanced Chat Interface */}
       {isOpen && (
         <div className={`absolute bottom-28 right-0 mb-4 transition-all duration-500 ${
           isMinimized ? 'w-80 h-20' : 'w-96 h-[600px]'
@@ -153,23 +164,23 @@ const TutorWidget: React.FC = () => {
             {/* Gradient border effect */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 blur-lg -z-10"></div>
             
-            {/* Premium Header */}
+            {/* Enhanced Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10 bg-gradient-to-r from-indigo-500/10 to-purple-500/10">
               <div className="flex items-center space-x-4">
                 <div className="relative">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-xl">
-                    <Rocket size={24} className="text-white" />
+                    <Brain className="h-6 w-6 text-white" />
                   </div>
                   <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-400 rounded-full border-2 border-white animate-pulse flex items-center justify-center">
-                    <Star className="h-3 w-3 text-white" />
+                    <Sparkles className="h-3 w-3 text-white" />
                   </div>
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-xl flex items-center space-x-2">
                     <span>COSMOS AI</span>
-                    <Rocket className="h-5 w-5 text-indigo-400" />
+                    <Cpu className="h-5 w-5 text-indigo-400" />
                   </h3>
-                  <p className="text-gray-300 text-sm">Space-Age Learning Assistant</p>
+                  <p className="text-gray-300 text-sm">Your Learning Companion</p>
                 </div>
               </div>
               <div className="flex items-center space-x-2">
@@ -221,7 +232,7 @@ const TutorWidget: React.FC = () => {
                             <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
                             <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                           </div>
-                          <span className="text-gray-300 text-sm">COSMOS is processing...</span>
+                          <span className="text-gray-300 text-sm">COSMOS is thinking...</span>
                         </div>
                       </div>
                     </div>
@@ -244,7 +255,7 @@ const TutorWidget: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Premium Input Area */}
+                {/* Enhanced Input Area */}
                 <div className="p-6 border-t border-white/10 bg-gradient-to-r from-indigo-500/5 to-purple-500/5">
                   <div className="flex space-x-3">
                     <input
@@ -271,62 +282,51 @@ const TutorWidget: React.FC = () => {
         </div>
       )}
 
-      {/* Astronaut Avatar - Space Theme */}
+      {/* Beautiful Animated Avatar */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`relative w-20 h-20 cursor-pointer transition-all duration-500 ${getAstronautAnimation()} hover:scale-110`}
+        className="relative w-20 h-20 cursor-pointer transition-all duration-500 hover:scale-110"
       >
-        {/* Astronaut body with space gradient */}
-        <div className="relative w-full h-full bg-gradient-to-br from-slate-800 via-gray-700 to-slate-900 rounded-2xl shadow-2xl border-2 border-cyan-400/30 overflow-hidden">
+        {/* Main Avatar Body */}
+        <div className="relative w-full h-full bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-2xl shadow-2xl border-2 border-white/20 overflow-hidden">
           
-          {/* Astronaut helmet design */}
-          <div className="absolute inset-2 bg-gradient-to-br from-cyan-400/20 to-blue-500/20 rounded-xl border border-cyan-400/40">
-            {/* Helmet visor */}
-            <div className="absolute inset-1 bg-gradient-to-br from-indigo-900/80 to-purple-900/80 rounded-lg flex flex-col items-center justify-center">
-              
-              {/* Reflection on visor */}
-              <div className="absolute top-1 left-1 w-3 h-2 bg-white/30 rounded-full blur-sm"></div>
-              
-              {/* Eyes/Display */}
-              <div className="flex space-x-1 mb-1">
-                <div className={`w-2 h-1 ${getHelmetGlow()} rounded-full transition-all duration-300`}></div>
-                <div className={`w-2 h-1 ${getHelmetGlow()} rounded-full transition-all duration-300`}></div>
-              </div>
-              
-              {/* Mouth/Communication display */}
-              <div className={`w-3 h-0.5 rounded-full ${
-                astronautMood === 'excited' ? 'bg-green-300' : 
-                astronautMood === 'thinking' ? 'bg-blue-300 animate-pulse' : 'bg-cyan-300'
-              } transition-colors duration-300`}></div>
-
-              {/* Brain/Processing overlay for thinking */}
-              {astronautMood === 'thinking' && (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Brain className="h-6 w-6 text-cyan-400/60 animate-pulse" />
-                </div>
-              )}
+          {/* Face Container */}
+          <div className="absolute inset-2 bg-gradient-to-br from-indigo-900/60 to-purple-900/60 rounded-xl border border-white/20 flex flex-col items-center justify-center">
+            
+            {/* Eyes */}
+            <div className="flex space-x-2 mb-2">
+              <div className={`w-2 ${getEyeStyle()} bg-cyan-400 rounded-full transition-all duration-150 ${isThinking ? 'animate-pulse' : ''}`}></div>
+              <div className={`w-2 ${getEyeStyle()} bg-cyan-400 rounded-full transition-all duration-150 ${isThinking ? 'animate-pulse' : ''}`}></div>
             </div>
+            
+            {/* Mouth */}
+            <div className={`${getMouthStyle()} bg-cyan-400 transition-all duration-300`}></div>
+
+            {/* Thinking indicator */}
+            {isThinking && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-8 h-8 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin"></div>
+              </div>
+            )}
+
+            {/* Happy particles */}
+            {mouthState === 'happy' && (
+              <>
+                <Sparkles className="absolute top-1 left-1 w-2 h-2 text-yellow-300 animate-bounce" />
+                <Star className="absolute top-1 right-1 w-2 h-2 text-cyan-300 animate-bounce" style={{ animationDelay: '200ms' }} />
+              </>
+            )}
           </div>
 
-          {/* Astronaut suit details */}
-          <div className="absolute bottom-1 left-1 w-1 h-2 bg-red-400 rounded-full opacity-80"></div>
-          <div className="absolute bottom-1 right-1 w-1 h-2 bg-green-400 rounded-full opacity-80"></div>
-          <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-2 h-1 bg-yellow-400 rounded-full opacity-60"></div>
-
-          {/* Processing indicators */}
-          {astronautMood === 'thinking' && (
+          {/* Status indicators */}
+          <div className="absolute bottom-1 left-1 w-1 h-2 bg-green-400 rounded-full opacity-80 animate-pulse"></div>
+          <div className="absolute bottom-1 right-1 w-1 h-2 bg-blue-400 rounded-full opacity-80 animate-pulse" style={{ animationDelay: '500ms' }}></div>
+          
+          {/* Processing lights */}
+          {isThinking && (
             <>
-              <div className="absolute left-0 top-1/2 w-0.5 h-3 bg-cyan-400/60 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></div>
-              <div className="absolute right-0 top-1/2 w-0.5 h-3 bg-cyan-400/60 rounded-full animate-pulse" style={{ animationDelay: '200ms' }}></div>
-            </>
-          )}
-
-          {/* Excitement particles */}
-          {astronautMood === 'excited' && (
-            <>
-              <Star className="absolute -top-1 -left-1 w-2 h-2 text-yellow-300 animate-bounce" style={{ animationDelay: '0ms' }} />
-              <Sparkles className="absolute -top-1 -right-1 w-2 h-2 text-cyan-300 animate-bounce" style={{ animationDelay: '200ms' }} />
-              <Star className="absolute -bottom-1 left-2 w-2 h-2 text-green-300 animate-bounce" style={{ animationDelay: '400ms' }} />
+              <div className="absolute left-0 top-1/2 w-0.5 h-3 bg-cyan-400/60 rounded-full animate-pulse"></div>
+              <div className="absolute right-0 top-1/2 w-0.5 h-3 bg-cyan-400/60 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></div>
             </>
           )}
 
@@ -344,11 +344,11 @@ const TutorWidget: React.FC = () => {
           </div>
         )}
 
-        {/* Hover glow effect matching space theme */}
+        {/* Hover glow effect */}
         <div className="absolute inset-0 rounded-2xl border-2 border-cyan-400/50 opacity-0 hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
         
-        {/* Ambient space glow */}
-        <div className="absolute inset-0 rounded-2xl bg-cyan-400/20 blur-xl opacity-50 animate-pulse -z-10"></div>
+        {/* Ambient glow */}
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-400/20 via-purple-400/20 to-pink-400/20 blur-xl opacity-50 animate-pulse -z-10"></div>
       </div>
     </div>
   );

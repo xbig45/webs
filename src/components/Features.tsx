@@ -12,8 +12,8 @@ const Features: React.FC = () => {
     },
     {
       icon: Zap,
-      title: 'Interactive 3D Content',
-      description: 'Immersive 3D experiences that make complex concepts easy to understand and remember.',
+      title: 'Interactive Content',
+      description: 'Immersive experiences that make complex concepts easy to understand and remember.',
       gradient: 'from-yellow-500 to-orange-500',
       bgPattern: 'bg-gradient-to-br from-yellow-500/10 to-orange-500/10'
     },
@@ -37,13 +37,6 @@ const Features: React.FC = () => {
       description: 'Learn from industry experts and get personalized guidance throughout your journey.',
       gradient: 'from-purple-500 to-violet-500',
       bgPattern: 'bg-gradient-to-br from-purple-500/10 to-violet-500/10'
-    },
-    {
-      icon: BookOpen,
-      title: 'Comprehensive Curriculum',
-      description: 'Access to cutting-edge courses covering the latest technologies and methodologies.',
-      gradient: 'from-indigo-500 to-blue-500',
-      bgPattern: 'bg-gradient-to-br from-indigo-500/10 to-blue-500/10'
     }
   ];
 
@@ -82,43 +75,64 @@ const Features: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className={`group relative ${feature.bgPattern} backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl`}
-              style={{
-                animationDelay: `${index * 100}ms`
-              }}
-            >
-              {/* Animated border gradient */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              
-              {/* Icon with enhanced gradient background */}
-              <div className={`relative inline-flex p-4 rounded-xl bg-gradient-to-r ${feature.gradient} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                <feature.icon className="h-6 w-6 text-white" />
-                {/* Glow effect */}
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${feature.gradient} blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300`}></div>
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Features Grid */}
+          <div className="grid md:grid-cols-1 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className={`group relative ${feature.bgPattern} backdrop-blur-sm rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 hover:transform hover:-translate-y-4 hover:shadow-2xl`}
+                style={{
+                  animationDelay: `${index * 100}ms`
+                }}
+              >
+                {/* Animated border gradient */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Icon with enhanced gradient background */}
+                <div className={`relative inline-flex p-4 rounded-xl bg-gradient-to-r ${feature.gradient} mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="h-6 w-6 text-white" />
+                  {/* Glow effect */}
+                  <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${feature.gradient} blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-300`}></div>
+                </div>
+
+                <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-indigo-300 transition-colors duration-200">
+                  {feature.title}
+                </h3>
+                
+                <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-200">
+                  {feature.description}
+                </p>
+
+                {/* Interactive elements */}
+                <div className="mt-6 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
+                  <span className="text-sm text-indigo-400 font-medium">Learn More</span>
+                </div>
+
+                {/* Hover effect overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
+            ))}
+          </div>
 
-              <h3 className="text-xl font-semibold text-white mb-4 group-hover:text-indigo-300 transition-colors duration-200">
-                {feature.title}
-              </h3>
-              
-              <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-200">
-                {feature.description}
-              </p>
-
-              {/* Interactive elements */}
-              <div className="mt-6 flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
-                <span className="text-sm text-indigo-400 font-medium">Learn More</span>
+          {/* 3D Model Section */}
+          <div className="relative">
+            <div className="bg-white/5 backdrop-blur-sm rounded-3xl p-8 border border-white/10 shadow-2xl relative z-20">
+              <div className="flex justify-center items-center relative">
+                <div style={{ width: '100%', height: '500px' }} className="rounded-2xl overflow-hidden relative z-30">
+                  <spline-viewer 
+                    url="https://prod.spline.design/Znd61lFcSyJ8XkXx/scene.splinecode"
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                </div>
               </div>
-
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              <div className="mt-6 text-center">
+                <h3 className="text-xl font-bold text-white mb-2">Interactive Learning Experience</h3>
+                <p className="text-gray-300">Explore concepts in an immersive 3D environment</p>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
